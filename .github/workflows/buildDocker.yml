@@ -12,7 +12,13 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
-        with:
-          submodules: "recursive"
-          token: ${{ secrets.GITLAB_PULL_TOKEN }}
-          lfs: true
+
+      - name: Pull submodules
+        run: |
+         ls -l
+
+
+        # with:
+        #   submodules: "recursive"
+        #   token: ${{ secrets.GITLAB_PULL_TOKEN }}
+        #   lfs: true
