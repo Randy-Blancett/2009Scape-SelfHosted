@@ -1,0 +1,18 @@
+---
+name: Build Configurations and Push them to sub projects.
+run-name: Building Docker Image
+on:
+  push:
+  repository_dispatch:
+    types: [template-update]
+
+jobs:
+  Build-Java:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+        with:
+          submodules: "recursive"
+          token: ${{ secrets.GITLAB_PULL_TOKEN }}
+          lfs: true
