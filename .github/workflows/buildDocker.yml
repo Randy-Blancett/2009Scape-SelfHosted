@@ -14,8 +14,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Pull submodules
+        working-directory: ./server
         run: |
-         ls -l
+         git status
 
 
         # with:
