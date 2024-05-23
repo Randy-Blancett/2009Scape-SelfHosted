@@ -22,6 +22,7 @@ jobs:
           git status
           git config --get remote.origin.url
           echo ${GITLAB_PULL_TOKEN}
+          echo ${{ secrets.GITLAB_PULL_TOKEN }}
 
         # with:
         #   submodules: "recursive"
