@@ -19,11 +19,12 @@ jobs:
         working-directory: ./server
         run: |
           pwd
+          ls -l
           git status
           git config --get remote.origin.url
           echo ${GITLAB_PULL_TOKEN}
           echo ${{ secrets.GITLAB_PULL_TOKEN }}
-          git pull
+          git lfs pull
 
         # with:
         #   submodules: "recursive"
