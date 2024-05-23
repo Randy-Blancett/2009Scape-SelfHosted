@@ -29,12 +29,11 @@ jobs:
         run: |
           ./build -qgcg
       - run: ls -l
-      - run: ls -l builddir
       - name: Upload Server Artifact
         uses: actions/upload-artifact@v3
         with:
           name: server-${{ matrix.java-version }}.jar
-          path: ./builddir/server.jar
+          path: ./server/builddir/server.jar
 
   Build-Docker:
     runs-on: ubuntu-latest
