@@ -9,22 +9,27 @@ on:
 jobs:
   Build-Java:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        java-version: [ 11, 16 ]
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
         with:
           submodules: "recursive"
 
+      - name: Set up multi JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: ${{ matrix.java-version }}
+          distribution: 'adopt'
+          cache: maven
       - name: Pull submodules
         working-directory: ./server
         run: |
-          pwd
-          ls -l
-          git status
-          git config --get remote.origin.url
-          echo ${GITLAB_PULL_TOKEN}
-          echo ${{ secrets.GITLAB_PULL_TOKEN }}
-          git lfs pull
+          ./build -qgcg
+          ls target
+          
 
         # with:
         #   submodules: "recursive"
