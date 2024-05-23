@@ -17,6 +17,7 @@ jobs:
         working-directory: ./server
         run: |
          git status
+         git config --get remote.origin.url
 
 
         # with:
