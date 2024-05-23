@@ -1,4 +1,4 @@
 [submodule "server"]
 	path = server
-	url = https://oauth2:${{ secrets.GITLAB_PULL_TOKEN }}@gitlab.com/2009scape/2009scape.git
+	url = https://gitlab.com/2009scape/2009scape.git
 	branch = master
