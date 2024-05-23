@@ -36,6 +36,7 @@ jobs:
 
   Build-Docker:
     runs-on: ubuntu-latest
+    needs: Build-Java
     strategy:
       matrix:
         java-version: [11, 16]
