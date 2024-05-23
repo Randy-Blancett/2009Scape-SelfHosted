@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        java-version: [ 11, 16 ]
+        java-version: [11, 16]
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
@@ -22,16 +22,27 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: ${{ matrix.java-version }}
-          distribution: 'adopt'
+          distribution: "adopt"
           cache: maven
       - name: Pull submodules
         working-directory: ./server
         run: |
           ./build -qgcg
-          ls ./Server/target
-          
+      - name: Upload Server Artifact
+        uses: actions/upload-artifact@v2.2.4
+        with:
+          name: server-${{ matrix.java-version }}.jar
+          path: builddir/server.jar
 
-        # with:
-        #   submodules: "recursive"
-        #   token: ${{ secrets.GITLAB_PULL_TOKEN }}
-        #   lfs: true
+  Build-Docker:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        java-version: [11, 16]
+    steps:
+      - name: Download Server Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: server-${{ matrix.java-version }}.jar
+          path: ./server-${{ matrix.java-version }}.jar
+      - run: ls -l
