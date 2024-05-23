@@ -28,7 +28,7 @@ jobs:
         working-directory: ./server
         run: |
           ./build -qgcg
-          ls target
+          ls ./Server/target
           
 
         # with:
