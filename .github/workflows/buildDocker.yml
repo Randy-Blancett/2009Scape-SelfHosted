@@ -35,7 +35,14 @@ jobs:
         with:
           name: server-${{ matrix.java-version }}.jar
           path: ./server/builddir/server.jar
-          retention-days: 5
+          retention-days: 1
+          
+      - name: Upload Dockerfile
+        uses: actions/upload-artifact@v4
+        with:
+          name: Dockerfile
+          path: ./Dockerfile
+          retention-days: 1
 
   Build-Docker:
     runs-on: ubuntu-latest
