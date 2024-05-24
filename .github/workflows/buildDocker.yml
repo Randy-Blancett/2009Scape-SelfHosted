@@ -19,7 +19,7 @@ jobs:
           submodules: "recursive"
 
       - name: Set up multi JDK
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v4
         with:
           java-version: ${{ matrix.java-version }}
           distribution: "adopt"
@@ -30,7 +30,7 @@ jobs:
           ./build -qgcg
       - run: ls -l
       - name: Upload Server Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: server-${{ matrix.java-version }}.jar
           path: ./server/builddir/server.jar
