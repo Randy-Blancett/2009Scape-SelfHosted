@@ -24,11 +24,12 @@ jobs:
           java-version: ${{ matrix.java-version }}
           distribution: "adopt"
           cache: maven
+
       - name: Pull submodules
         working-directory: ./server
         run: |
           ./build -qgcg
-      - run: ls -l
+
       - name: Upload Server Artifact
         uses: actions/upload-artifact@v4
         with:
@@ -54,3 +55,10 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: 2009scape-java-${{ matrix.java-version }}:latest
