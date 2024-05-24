@@ -34,13 +34,14 @@ jobs:
         with:
           name: server-${{ matrix.java-version }}.jar
           path: ./server/builddir/server.jar
+          retention-days: 5
 
   Build-Docker:
     runs-on: ubuntu-latest
     needs: Build-Java
     strategy:
       matrix:
-        java-version: [11, 16]
+        java-version: [11]
     steps:
       - name: Download Server Artifact
         uses: actions/download-artifact@v4
