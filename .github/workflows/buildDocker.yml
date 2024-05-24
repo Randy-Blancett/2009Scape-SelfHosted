@@ -62,7 +62,7 @@ jobs:
           name: Dockerfile-${{ matrix.java-version }}
           path: ./Build
       - run: ls -l
-      - run: ls -l Dockerfile
+      - run: ls -l Build
       - run: mv Code/* .
       - run: mv Build/* .
       - run: ls -l
