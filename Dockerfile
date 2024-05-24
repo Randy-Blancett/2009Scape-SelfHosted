@@ -9,6 +9,5 @@ COPY ./server.jar /app
 # Make sure ./run has permissions
 RUN chmod +x run
 
-GS_EXEC="cd $GS_SRC && java -Dnashorn.args=--no-deprecation-warning -jar $BUILD_DIR/server.jar"
 # Run it
-CMD ["java -Dnashorn.args=--no-deprecation-warning -jar /app/server.jar]
+ENTRYPOINT ["java", "-Dnashorn.args=--no-deprecation-warning", "-jar" , "/app/server.jar"]
