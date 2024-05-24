@@ -6,8 +6,5 @@ WORKDIR /app/2009scape
 
 COPY ./server.jar /app
 
-# Make sure ./run has permissions
-RUN chmod +x run
-
 # Run it
 ENTRYPOINT ["java", "-Dnashorn.args=--no-deprecation-warning", "-jar" , "/app/server.jar"]
