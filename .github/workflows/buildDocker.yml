@@ -65,14 +65,15 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: Dockerfile-${{ matrix.java-version }}
-          path: .
+          path: ./Build
 
       - name: Download World Properties
         uses: actions/download-artifact@v4
         with:
           name: World_Properties-${{ matrix.java-version }}
-          path: ./Build
+          path: .
 
+      - run: ls -l
       - run: mv Code/* .
       - run: mv Build/* .
 
