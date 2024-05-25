@@ -9,4 +9,4 @@ COPY ./server.jar /app
 COPY ./worldprops /app
 
 # Run it
-ENTRYPOINT java -Dnashorn.args=--no-deprecation-warning -jar /app/server.jar "/app/worldprops/${WORLD_CONFIG_FILE}"
+ENTRYPOINT java -Dnashorn.args=--no-deprecation-warning -jar /app/server.jar "worldprops/${WORLD_CONFIG_FILE}"
