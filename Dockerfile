@@ -5,8 +5,9 @@ FROM eclipse-temurin:11-jre-alpine
 WORKDIR /app
 ENV WORLD_CONFIG_FILE=default.conf
 
+RUN mkdir -p /app/worldprops
 COPY ./server.jar /app
-COPY ./worldprops /app
+COPY ./worldprops/* /app/worldprops
 
 # Run it
 ENTRYPOINT ls -l /app && java -Dnashorn.args=--no-deprecation-warning -jar /app/server.jar "worldprops/${WORLD_CONFIG_FILE}"
