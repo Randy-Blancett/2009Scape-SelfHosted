@@ -13,4 +13,4 @@ fi
 
 ls -l -h /app/worldprops
 
-java -Dnashorn.args=--no-deprecation-warning -jar /app/server.jar "${WORLD_PROP_FILE} "
+java -Dnashorn.args=--no-deprecation-warning -jar /app/server.jar "${WORLD_PROP_FILE}"
