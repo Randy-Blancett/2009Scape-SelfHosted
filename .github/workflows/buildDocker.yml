@@ -30,6 +30,7 @@ jobs:
       #   run: |
       #     ./build -qgcg
 
+      - run: mkdir -p server/builddir
       - run: echo "hello" > server/builddir/server.jar
 
       - name: Upload Server Artifact
