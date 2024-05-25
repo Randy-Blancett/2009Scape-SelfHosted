@@ -35,14 +35,18 @@ jobs:
         with:
           name: server-${{ matrix.java-version }}.jar
           path: ./server/builddir/server.jar
-          retention-days: 1
 
       - name: Upload Dockerfile
         uses: actions/upload-artifact@v4
         with:
           name: Dockerfile-${{ matrix.java-version }}
           path: ./Dockerfile
-          retention-days: 1
+
+      - name: Upload World Properties
+        uses: actions/upload-artifact@v4
+        with:
+          name: World_Properties-${{ matrix.java-version }}
+          path: ./server/Server/worldprops
 
   Build-Docker:
     runs-on: ubuntu-latest
@@ -56,16 +60,21 @@ jobs:
         with:
           name: server-${{ matrix.java-version }}.jar
           path: ./Code
+
       - name: Download DockerFile
         uses: actions/download-artifact@v4
         with:
           name: Dockerfile-${{ matrix.java-version }}
+          path: .
+
+      - name: Download World Properties
+        uses: actions/download-artifact@v4
+        with:
+          name: World_Properties-${{ matrix.java-version }}
           path: ./Build
-      - run: ls -l
-      - run: ls -l Build
+          
       - run: mv Code/* .
       - run: mv Build/* .
-      - run: ls -l
 
       - name: Login to Docker Hub
         uses: docker/login-action@v3
