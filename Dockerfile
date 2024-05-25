@@ -12,4 +12,4 @@ COPY ./start.sh /app
 RUN chmod a+x start.sh
 
 # Run it
-ENTRYPOINT ./start.sh
+ENTRYPOINT /app/start.sh
