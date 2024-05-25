@@ -7,7 +7,8 @@ ENV WORLD_CONFIG_FILE=default.conf
 
 RUN mkdir -p /app/worldprops
 COPY ./server.jar /app
-COPY ./worldprops/* /app/worldprops
+COPY ./default.conf /app
+COPY ./start.sh /app
 
 # Run it
-ENTRYPOINT ls -l /app && java -Dnashorn.args=--no-deprecation-warning -jar /app/server.jar "worldprops/${WORLD_CONFIG_FILE}"
+ENTRYPOINT ./start.sh
