@@ -9,6 +9,7 @@ RUN mkdir -p /app/worldprops
 COPY ./server.jar /app
 COPY ./default.conf /app
 COPY ./start.sh /app
+RUN chmod a+x start.sh
 
 # Run it
 ENTRYPOINT ./start.sh
