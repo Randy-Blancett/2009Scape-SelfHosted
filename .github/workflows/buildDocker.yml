@@ -25,13 +25,10 @@ jobs:
           distribution: "adopt"
           cache: maven
 
-      # - name: Pull submodules
-      #   working-directory: ./server
-      #   run: |
-      #     ./build -qgcg
-
-      - run: mkdir -p server/builddir
-      - run: echo "hello" > server/builddir/server.jar
+      - name: Pull submodules
+        working-directory: ./server
+        run: |
+          ./build -qgcg
 
       - name: Upload Server Artifact
         uses: actions/upload-artifact@v4
