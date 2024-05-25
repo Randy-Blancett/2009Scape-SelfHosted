@@ -1,6 +1,7 @@
 #!/bin/sh
 
 ls -l -h
+ls -l -h /app/default_data
 pwd
 mkdir -p /app/worldprops
 mkdir -p /app/data
