@@ -25,13 +25,13 @@ jobs:
           distribution: "adopt"
           cache: maven
 
-      # - name: Pull submodules
-      #   working-directory: ./server
-      #   run: |
-      #     ./build -qgcg
+      - name: Pull submodules
+        working-directory: ./server
+        run: |
+          ./build -qgcg
 
-      - run: mkdir -p ./server/builddir/
-      - run: echo "hello" > ./server/builddir/server.jar
+      # - run: mkdir -p ./server/builddir/
+      # - run: echo "hello" > ./server/builddir/server.jar
 
       - name: Upload Server Artifact
         uses: actions/upload-artifact@v4
@@ -99,9 +99,6 @@ jobs:
         with:
           name: Start_Script-${{ matrix.java-version }}
           path: .
-
-      - run: ls -l
-      - run: ls -l -h default_data
 
       - name: Login to Docker Hub
         uses: docker/login-action@v3

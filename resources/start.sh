@@ -1,8 +1,5 @@
 #!/bin/sh
 
-ls -l -h
-ls -l -h /app/default_data
-pwd
 mkdir -p /app/worldprops
 mkdir -p /app/data
 
@@ -49,7 +46,5 @@ then
     echo "${DIR_ECO} does not exist copying the default data."
     cp -rf ${DEFAULT_DATA_DIR}/eco ${DIR_ECO}
 fi
-
-ls -l -h /app/worldprops
 
 java -Dnashorn.args=--no-deprecation-warning -jar /app/server.jar "${WORLD_PROP_FILE}"
