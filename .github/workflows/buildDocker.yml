@@ -49,13 +49,13 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: World_Properties-${{ matrix.java-version }}
-          path: ./resources/worldprops/
+          path: ./resources/worldprops/*
 
       - name: Upload Data Files
         uses: actions/upload-artifact@v4
         with:
           name: Data_Files-${{ matrix.java-version }}
-          path: ./server/Server/data
+          path: ./server/Server/data/*
 
       - name: Upload Start.sh
         uses: actions/upload-artifact@v4
@@ -92,7 +92,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: Data_Files-${{ matrix.java-version }}
-          path: default_data
+          path: .
 
       - name: Download World Properties
         uses: actions/download-artifact@v4
