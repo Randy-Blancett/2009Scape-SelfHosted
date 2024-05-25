@@ -11,7 +11,7 @@ RUN mkdir -p ${DEFAULT_DATA_DIR}
 COPY ./server.jar /app
 COPY ./default.conf /app
 COPY ./start.sh /app
-COPY ./data/* ${DEFAULT_DATA_DIR}
+COPY ./default_data/* ${DEFAULT_DATA_DIR}
 RUN chmod a+x /app/start.sh
 
 # Run it

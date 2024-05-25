@@ -92,7 +92,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: Data_Files-${{ matrix.java-version }}
-          path: .
+          path: default_data
 
       - name: Download World Properties
         uses: actions/download-artifact@v4
