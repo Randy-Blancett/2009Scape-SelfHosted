@@ -29,25 +29,25 @@ fi
 if [ ! -d ${DIR_BOT_DATA} ]
 then
     echo "${DIR_BOT_DATA} does not exist copying the default data."
-    cp ${DEFAULT_DATA_DIR}/botdata ${DIR_BOT_DATA}
+    cp -rf ${DEFAULT_DATA_DIR}/botdata ${DIR_BOT_DATA}
 fi
 
 if [ ! -d ${DIR_CACHE} ]
 then
     echo "${DIR_CACHE} does not exist copying the default data."
-    cp ${DEFAULT_DATA_DIR}/cache ${DIR_CACHE}
+    cp -rf ${DEFAULT_DATA_DIR}/cache ${DIR_CACHE}
 fi
 
 if [ ! -d ${DIR_CONFIGS} ]
 then
     echo "${DIR_CONFIGS} does not exist copying the default data."
-    cp ${DEFAULT_DATA_DIR}/configs ${DIR_CONFIGS}
+    cp -rf ${DEFAULT_DATA_DIR}/configs ${DIR_CONFIGS}
 fi
 
 if [ ! -d ${DIR_ECO} ]
 then
     echo "${DIR_ECO} does not exist copying the default data."
-    cp ${DEFAULT_DATA_DIR}/eco ${DIR_ECO}
+    cp -rf ${DEFAULT_DATA_DIR}/eco ${DIR_ECO}
 fi
 
 ls -l -h /app/worldprops
