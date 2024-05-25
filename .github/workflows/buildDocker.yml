@@ -46,7 +46,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: World_Properties-${{ matrix.java-version }}
-          path: ./server/Server/worldprops
+          path: ./resources/worldprops/
 
   Build-Docker:
     runs-on: ubuntu-latest
@@ -72,7 +72,7 @@ jobs:
         with:
           name: World_Properties-${{ matrix.java-version }}
           path: ./Build
-          
+
       - run: mv Code/* .
       - run: mv Build/* .
 
