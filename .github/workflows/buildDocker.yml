@@ -25,10 +25,13 @@ jobs:
           distribution: "adopt"
           cache: maven
 
-      - name: Pull submodules
-        working-directory: ./server
-        run: |
-          ./build -qgcg
+      # - name: Pull submodules
+      #   working-directory: ./server
+      #   run: |
+      #     ./build -qgcg
+
+      - run: mkdir -p ./server/builddir/
+      - run: echo "hello" > ./server/builddir/server.jar
 
       - name: Upload Server Artifact
         uses: actions/upload-artifact@v4
@@ -47,6 +50,12 @@ jobs:
         with:
           name: World_Properties-${{ matrix.java-version }}
           path: ./resources/worldprops/
+
+      - name: Upload Data Files
+        uses: actions/upload-artifact@v4
+        with:
+          name: Data_Files-${{ matrix.java-version }}
+          path: ./server/Server/data
 
       - name: Upload Start.sh
         uses: actions/upload-artifact@v4
@@ -78,6 +87,12 @@ jobs:
         with:
           name: World_Properties-${{ matrix.java-version }}
           path: .
+
+      - name: Data Files Properties
+        uses: actions/download-artifact@v4
+        with:
+          name: Data_Files-${{ matrix.java-version }}
+          path: default_data
 
       - name: Download World Properties
         uses: actions/download-artifact@v4
