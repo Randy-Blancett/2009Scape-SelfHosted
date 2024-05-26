@@ -25,13 +25,13 @@ jobs:
           distribution: "adopt"
           cache: maven
 
-      - name: Pull submodules
-        working-directory: ./server
-        run: |
-          ./build -qgcg
+      # - name: Pull submodules
+      #   working-directory: ./server
+      #   run: |
+      #     ./build -qgcg
 
-      # - run: mkdir -p ./server/builddir/
-      # - run: echo "hello" > ./server/builddir/server.jar
+      - run: mkdir -p ./server/builddir/
+      - run: echo "hello" > ./server/builddir/server.jar
 
       - name: Upload Server Artifact
         uses: actions/upload-artifact@v4
@@ -51,12 +51,6 @@ jobs:
           name: World_Properties-${{ matrix.java-version }}
           path: ./resources/worldprops/*
 
-      - name: Upload Data Files
-        uses: actions/upload-artifact@v4
-        with:
-          name: Data_Files-${{ matrix.java-version }}
-          path: ./server/Server/data/*
-
       - name: Upload Start.sh
         uses: actions/upload-artifact@v4
         with:
@@ -70,6 +64,11 @@ jobs:
       matrix:
         java-version: [11]
     steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+        with:
+          submodules: "recursive"
+          lfs: true
       - name: Download Server Artifact
         uses: actions/download-artifact@v4
         with:
@@ -88,12 +87,6 @@ jobs:
           name: World_Properties-${{ matrix.java-version }}
           path: .
 
-      - name: Data Files Properties
-        uses: actions/download-artifact@v4
-        with:
-          name: Data_Files-${{ matrix.java-version }}
-          path: default_data/
-
       - name: Download Start Script
         uses: actions/download-artifact@v4
         with:
@@ -111,6 +104,9 @@ jobs:
         uses: docker/metadata-action@v5.5.1
         with:
           images: randyblancett/2009scape
+
+      - run: cp -r server/Server/data/* ./default_data/
+      - run: ls -l default_data/cache/
 
       - name: Build and push
         uses: docker/build-push-action@v5
