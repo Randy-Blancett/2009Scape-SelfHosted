@@ -39,24 +39,6 @@ jobs:
           name: server-${{ matrix.java-version }}.jar
           path: ./server/builddir/server.jar
 
-      - name: Upload Dockerfile
-        uses: actions/upload-artifact@v4
-        with:
-          name: Dockerfile-${{ matrix.java-version }}
-          path: ./Dockerfile
-
-      - name: Upload World Properties
-        uses: actions/upload-artifact@v4
-        with:
-          name: World_Properties-${{ matrix.java-version }}
-          path: ./resources/worldprops/*
-
-      - name: Upload Start.sh
-        uses: actions/upload-artifact@v4
-        with:
-          name: Start_Script-${{ matrix.java-version }}
-          path: ./resources/start.sh
-
   Build-Docker:
     runs-on: ubuntu-latest
     needs: Build-Java
@@ -75,23 +57,7 @@ jobs:
           name: server-${{ matrix.java-version }}.jar
           path: .
 
-      - name: Download DockerFile
-        uses: actions/download-artifact@v4
-        with:
-          name: Dockerfile-${{ matrix.java-version }}
-          path: .
-
-      - name: Download World Properties
-        uses: actions/download-artifact@v4
-        with:
-          name: World_Properties-${{ matrix.java-version }}
-          path: .
-
-      - name: Download Start Script
-        uses: actions/download-artifact@v4
-        with:
-          name: Start_Script-${{ matrix.java-version }}
-          path: .
+      - run: ./populateBuildDir.sh
 
       - name: Login to Docker Hub
         uses: docker/login-action@v3
@@ -105,12 +71,11 @@ jobs:
         with:
           images: randyblancett/2009scape
 
-      - run: cp -r server/Server/data/* ./default_data/
       - run: ls -l default_data/cache/
 
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: build
           push: true
           tags: randyblancett/2009scape:java-${{ matrix.java-version }}-latest
