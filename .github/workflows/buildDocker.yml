@@ -25,13 +25,13 @@ jobs:
           distribution: "adopt"
           cache: maven
 
-      # - name: Pull submodules
-      #   working-directory: ./server
-      #   run: |
-      #     ./build -qgcg
+      - name: Pull submodules
+        working-directory: ./server
+        run: |
+          ./build -qgcg
 
-      - run: mkdir -p ./server/builddir/
-      - run: echo "hello" > ./server/builddir/server.jar
+      # - run: mkdir -p ./server/builddir/
+      # - run: echo "hello" > ./server/builddir/server.jar
 
       - name: Upload Server Artifact
         uses: actions/upload-artifact@v4
@@ -70,9 +70,6 @@ jobs:
         uses: docker/metadata-action@v5.5.1
         with:
           images: randyblancett/2009scape
-
-      - run: ls -l build/default_data/cache/
-      - run: ls -l build
 
       - name: Build and push
         uses: docker/build-push-action@v5
