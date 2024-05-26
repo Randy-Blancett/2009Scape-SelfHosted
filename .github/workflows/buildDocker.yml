@@ -55,7 +55,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: server-${{ matrix.java-version }}.jar
-          path: server/builddir/server.jar
+          path: server/builddir
 
       - run: ./populateBuildDir.sh
 
