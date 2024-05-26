@@ -47,4 +47,6 @@ then
     cp -rf ${DEFAULT_DATA_DIR}/eco ${DIR_ECO}
 fi
 
-java -Dnashorn.args=--no-deprecation-warning -jar /app/server.jar "${WORLD_PROP_FILE}"
+# java -Dnashorn.args=--no-deprecation-warning -jar /app/server.jar "${WORLD_PROP_FILE}"
+
+top

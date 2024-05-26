@@ -94,7 +94,7 @@ jobs:
           name: Data_Files-${{ matrix.java-version }}
           path: default_data/
 
-      - name: Download World Properties
+      - name: Download Start Script
         uses: actions/download-artifact@v4
         with:
           name: Start_Script-${{ matrix.java-version }}
