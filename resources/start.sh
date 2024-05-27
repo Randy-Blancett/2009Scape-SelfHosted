@@ -1,8 +1,9 @@
 #!/bin/sh
 
-mkdir -p /app/worldprops
-mkdir -p /app/data
+DIR_DATA=/app/data
 
+mkdir -p /app/worldprops
+mkdir -p ${DIR_DATA}
 
 DIR_BOT_DATA=/app/data/botdata
 DIR_CACHE=/app/data/cache
@@ -23,34 +24,42 @@ then
     cp ${DEFAULT_DATA_DIR}/ObjectParser.xml ${FILE_OBJECT_PARSER}
 fi
 
-if [ ! -d ${DIR_BOT_DATA} ]
-then
-    echo "${DIR_BOT_DATA} does not exist copying the default data."
-    cp -rf ${DEFAULT_DATA_DIR}/botdata ${DIR_BOT_DATA}
-fi
 
-if [ ! -d ${DIR_CACHE} ]
-then
-    echo "${DIR_CACHE} does not exist copying the default data."
-    cp -rf ${DEFAULT_DATA_DIR}/cache ${DIR_CACHE}
-fi
+for FOLDER in ${DEFAULT_DATA_DIR}/*
+do
+    echo "Checking ${FOLDER}."
+    if [ -d "${FOLDER}" ]
+    then
+        DIR_NAME=$(basename ${FOLDER})
+        OUTPUT_DIR=${DIR_DATA}/${DIR_NAME} 
+        echo " Folder Name: ${DIR_NAME}"    
+        if [ ! -d ${OUTPUT_DIR} ]
+        then
+            echo "${OUTPUT_DIR} does not exist copying the default data."
+            cp -rf ${FOLDER} ${OUTPUT_DIR} 
+        fi    
 
-if [ ! -d ${DIR_CONFIGS} ]
-then
-    echo "${DIR_CONFIGS} does not exist copying the default data."
-    cp -rf ${DEFAULT_DATA_DIR}/configs ${DIR_CONFIGS}
-fi
-
-if [ ! -d ${DIR_ECO} ]
-then
-    echo "${DIR_ECO} does not exist copying the default data."
-    cp -rf ${DEFAULT_DATA_DIR}/eco ${DIR_ECO}
-fi
-
+        if [ "${DIR_NAME}" == "configs" ]
+        then
+            echo " Special Handeling for configs"
+            for CONFIG_ITEM in ${FOLDER}/*
+            do
+                echo "  Item Name: ${CONFIG_ITEM}" 
+                ITEM_NAME=$(basename ${CONFIG_ITEM}) 
+                CONFIG_OUTPUT_DIR=${OUTPUT_DIR}/${ITEM_NAME} 
+                if [ ! -e ${CONFIG_OUTPUT_DIR} ]
+                then
+                    echo "${CONFIG_OUTPUT_DIR} does not exist copying the default data."
+                    cp -rf ${CONFIG_ITEM} ${CONFIG_OUTPUT_DIR} 
+                fi  
+            done
+        fi
+    fi
+done
 
 if [ -z ${KEEP_ALIVE} ]
 then
-    top
-else
     java -Dnashorn.args=--no-deprecation-warning -jar /app/server.jar "${WORLD_PROP_FILE}"
+else
+    top
 fi
