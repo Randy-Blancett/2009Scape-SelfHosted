@@ -1,0 +1,79 @@
+---
+name: Build Configurations and Push them to sub projects.
+run-name: Building Docker Image
+on:
+  push:
+  repository_dispatch:
+    types: [template-update]
+
+jobs:
+  Build-Java:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        java-version: [11, 16]
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+        with:
+          submodules: "recursive"
+
+      - name: Set up multi JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ matrix.java-version }}
+          distribution: "adopt"
+          cache: maven
+
+      - name: Pull submodules
+        working-directory: ./server
+        run: |
+          ./build -qgcg
+
+      # - run: mkdir -p ./server/builddir/
+      # - run: echo "hello" > ./server/builddir/server.jar
+
+      - name: Upload Server Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: server-${{ matrix.java-version }}.jar
+          path: ./server/builddir/server.jar
+
+  Build-Docker:
+    runs-on: ubuntu-latest
+    needs: Build-Java
+    strategy:
+      matrix:
+        java-version: [11]
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+        with:
+          submodules: "recursive"
+          lfs: true
+      - name: Download Server Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: server-${{ matrix.java-version }}.jar
+          path: server/builddir
+
+      - run: ./populateBuildDir.sh
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v5.5.1
+        with:
+          images: randyblancett/2009scape
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: ./build
+          push: true
+          tags: randyblancett/2009scape:java-${{ matrix.java-version }}-latest
