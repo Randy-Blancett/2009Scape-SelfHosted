@@ -17,6 +17,7 @@ COPY ./default_data ${DEFAULT_DATA_DIR}
 
 RUN chmod -R 755 /app
 RUN chmod -R 777 /app/data
+RUN chmod -R 777 /app/worldprops
 
 # Run it
 ENTRYPOINT /app/start.sh
