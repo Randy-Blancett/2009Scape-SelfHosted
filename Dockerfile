@@ -9,6 +9,7 @@ ENV DEFAULT_DATA_DIR=/app/default_data
 RUN mkdir -p /app/worldprops
 RUN mkdir -p ${DEFAULT_DATA_DIR}
 RUN mkdir -p /app/data/configs
+RUN mkdir -p /app/data/players
 
 COPY ./server.jar /app
 COPY ./default.conf /app
@@ -19,6 +20,7 @@ RUN chmod -R 755 /app
 RUN chmod -R 777 /app/data
 RUN chmod -R 777 /app/worldprops
 RUN chmod -R 777 /app/data/configs
+RUN chmod -R 777 /app/data/players
 
 # Run it
 ENTRYPOINT /app/start.sh

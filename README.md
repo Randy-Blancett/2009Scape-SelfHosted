@@ -5,6 +5,7 @@ Project to make 2009Scape more self hosting friendly.
 * **/app/worldprops/**: This is the directory where world property files will be loaded.
 * **/app/data/**: All the data used by 2009Scape.
 * **/app/data/configs/**: Configuration files for the game.
+* **/app/data/players/**: Data files for player data.
 
 # Environment Variables
 * **WORLD_CONFIG_FILE**: This is the World configuration file to load. File must be located in _/app/Worldprops_.
