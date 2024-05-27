@@ -24,10 +24,9 @@ then
     cp ${DEFAULT_DATA_DIR}/ObjectParser.xml ${FILE_OBJECT_PARSER}
 fi
 
-
 for FOLDER in ${DEFAULT_DATA_DIR}/*
 do
-    echo "Checking ${FOLDER}."
+    echo "- Checking ${FOLDER}."
     if [ -d "${FOLDER}" ]
     then
         DIR_NAME=$(basename ${FOLDER})
@@ -35,21 +34,21 @@ do
         echo " Folder Name: ${DIR_NAME}"    
         if [ ! -d ${OUTPUT_DIR} ]
         then
-            echo "${OUTPUT_DIR} does not exist copying the default data."
+            echo " - ${OUTPUT_DIR} does not exist copying the default data."
             cp -rf ${FOLDER} ${OUTPUT_DIR} 
         fi    
 
         if [ "${DIR_NAME}" == "configs" ]
         then
-            echo " Special Handeling for configs"
+            echo " - Special Handeling for configs"
             for CONFIG_ITEM in ${FOLDER}/*
             do
-                echo "  Item Name: ${CONFIG_ITEM}" 
+                echo "  - Item Name: ${CONFIG_ITEM}" 
                 ITEM_NAME=$(basename ${CONFIG_ITEM}) 
                 CONFIG_OUTPUT_DIR=${OUTPUT_DIR}/${ITEM_NAME} 
                 if [ ! -e ${CONFIG_OUTPUT_DIR} ]
                 then
-                    echo "${CONFIG_OUTPUT_DIR} does not exist copying the default data."
+                    echo "  - ${CONFIG_OUTPUT_DIR} does not exist copying the default data."
                     cp -rf ${CONFIG_ITEM} ${CONFIG_OUTPUT_DIR} 
                 fi  
             done
