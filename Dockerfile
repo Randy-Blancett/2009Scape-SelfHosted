@@ -8,6 +8,7 @@ ENV DEFAULT_DATA_DIR=/app/default_data
 
 RUN mkdir -p /app/worldprops
 RUN mkdir -p ${DEFAULT_DATA_DIR}
+RUN mkdir -p /app/data
 
 COPY ./server.jar /app
 COPY ./default.conf /app
