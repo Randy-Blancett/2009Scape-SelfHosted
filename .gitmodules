@@ -1,4 +1,4 @@
 [submodule "server"]
 	path = server
 	url = https://gitlab.com/2009scape/2009scape.git
-	branch = master
+	branch = May-31-2024
